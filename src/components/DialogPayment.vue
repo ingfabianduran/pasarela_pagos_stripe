@@ -23,7 +23,8 @@
         <v-btn
           color="green darken-1"
           :loading="isLoading"
-          @click="efectuarPago">
+          @click="efectuarPago"
+          dark>
           Efectuar Pago
         </v-btn>
       </v-card-actions>
