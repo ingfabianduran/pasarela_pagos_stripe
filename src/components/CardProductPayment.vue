@@ -20,11 +20,11 @@ export default {
       const formatNumber = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
-      }).format(this.productsPayment.items[0].amount || '0');
+      }).format(this.productsPayment.items[0].costo || '0');
       return formatNumber;
     },
     descriptionsProduct() {
-      const description = this.productsPayment.items[0].name || '';
+      const description = this.productsPayment.items[0].paquete || '';
       return description;
     }
   }

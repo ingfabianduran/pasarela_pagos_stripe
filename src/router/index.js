@@ -7,9 +7,10 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/paquetes/:pago?',
     name: 'home',
-    component: Home
+    component: Home,
+    props: true
   },
   {
     path: '/compra/:status',

@@ -54,16 +54,13 @@ export default {
       type: Object,
       required: true
     },
-    informationClie: {
-      type: Object,
-      required: true
-    }
   },
   components: {
     CardProductPayment
   },
   methods: {
     efectuarPago() {
+      localStorage.setItem('idCompra', this.productsPayment.items[0].id);
       this.isLoading = true;
       axios({
         method: 'POST',
@@ -73,6 +70,7 @@ export default {
         this.showAlert = true;
         this.typeAlert = 'success';
         this.textAlert = 'Un momento por favor...';
+        localStorage.setItem('idTrans', res.data.id_pago);
         setTimeout(() => {
           location.href = res.data.url;
         }, 2000);
@@ -87,7 +85,7 @@ export default {
   },
   computed: {
     createMessage() {
-      const message = `Enhorabuena!!! el freelacer ${this.informationClie.name} ${this.informationClie.lastName} 
+      const message = `Enhorabuena!!! el freelacer ${this.productsPayment.items[0].cliente}
                        ha aceptado el trabajo. Por favor realizar el pago en la siguiente plataforma.`;
       return message;
     }

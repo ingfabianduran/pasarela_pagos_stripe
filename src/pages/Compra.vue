@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       isView: true,
-      typeAlert: 'success',
+      typeAlert: '',
       messageAlert: 'Compra realizada correctamente'
     }
   },
@@ -42,13 +42,28 @@ export default {
   },
   created() {
     if (this.status === '0') {
-      this.typeAlert = 'error';
-      this.messageAlert = 'Error al realizar la compra';
+      this.setStateCompra('error', 'Error al realizar la compra', 'Error');
+    } else {
+      this.setStateCompra('success', 'Compra realizada correctamente', 'Pagado');
     }
   },
   methods: {
     redirectHomePage() {
-      this.$router.push('/');
+      const idPago = localStorage.getItem('idTrans');
+      this.$router.push(`/paquetes/${idPago}`);
+    },
+    setStateCompra(statusAlert, message, statusCompra) {
+      this.typeAlert = statusAlert;
+      this.messageAlert = message;
+      const idCompra = localStorage.getItem('idCompra');
+      const listadoCompra = JSON.parse(localStorage.getItem('products'));
+      const indexListado = listadoCompra.findIndex(item => item.id === idCompra);
+      const compra = {
+        ...listadoCompra[indexListado],
+        estado: statusCompra,
+      };
+      listadoCompra[indexListado] = compra;
+      localStorage.setItem('products', JSON.stringify(listadoCompra));
     }
   }
 }
